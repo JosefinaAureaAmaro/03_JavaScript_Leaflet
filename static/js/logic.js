@@ -3,20 +3,8 @@ var queryUrl = "https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson"
                     "&starttime=2018-08-01&endtime=2018-08-31&maxlongitude=-69.52148437&minlongitude=-123.83789062&maxlatitude=48.74894534&minlatitude=25.16517337";
 
 
-//  Gather data into d3 JSON format 
-var  myMap, longLat;
-
-d3.json(queryUrl, function(data) {
-  // Once we get a response, send the data.features object to the createFeatures function
-    console.log(`properties: ${Object.keys(data)}`); 
-    console.log(`mag: ${data.features[0].properties.mag}`);
-
-    var test = data.features[0].geometry.coordinates.slice(0,2);
-
-    console.log(`coordinates: ${test}`); 
- 
+d3.json(queryUrl, function(data) { 
   createFeatures(data);
-
   });
 
 function createFeatures(earthquakeData) {
@@ -119,7 +107,7 @@ function createMap(earthquakes) {
     };
   
     // Create our map, giving it the streetmap and earthquakes layers to display on load
-    myMap = L.map("map", {
+    var myMap = L.map("map", {
       center: [
         37.09, -95.71
       ],
